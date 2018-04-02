@@ -1,6 +1,8 @@
 package com.wilbrom.myawesomematerials;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,34 @@ public class Main4Activity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.chat).setOnClickListener(this);
         findViewById(R.id.archive).setOnClickListener(this);
 
+        ValueAnimator fadeAnimation = ObjectAnimator.ofFloat(findViewById(R.id.bot_linear), "alpha", 0f, 1f);
+        fadeAnimation.setDuration(1000);
+        fadeAnimation.start();
+
+        fadeAnimation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                setUpRecyclerView();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+    }
+
+    private void setUpRecyclerView() {
         ((RecyclerView) findViewById(R.id.recycler_shape))
                 .setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
 
@@ -48,6 +77,9 @@ public class Main4Activity extends AppCompatActivity implements View.OnClickList
         ((RecyclerView) findViewById(R.id.recycler_shape))
                 .setAdapter(new Adapter(list));
 
+        ValueAnimator fadeAnimation = ObjectAnimator.ofFloat(findViewById(R.id.recycler_shape), "alpha", 0f, 1f);
+        fadeAnimation.setDuration(600);
+        fadeAnimation.start();
     }
 
     @Override
